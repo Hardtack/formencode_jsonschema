@@ -67,6 +67,11 @@ class TypedValidatorConverter(ValidatorConverter):
     def convert(self, validator: Validator, delegate: SchemaDelegate):
         return validator.json_type
     
+    def is_required(self, validator: Validator, delegate: SchemaDelegate):
+        if validator.required is not NoDefault:
+            return validator.required
+        return delegate.is_required(validator.validator)
+    
     
 class AllValidatorConverter(ValidatorConverter):
     def can_convert(self, validator: Validator, delegate: SchemaDelegate):

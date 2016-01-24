@@ -65,7 +65,8 @@ def test_compound_dump():
 
 def test_typed_dump():
     class UserReally(Schema):
-        really = typed.BooleanTyped(v.UnicodeString(if_missing=None))
+        really = typed.BooleanTyped(v.UnicodeString(if_missing=None),
+                                    required=True)
 
     json_schema = JSONSchema()
     formencode_schema = UserReally()
