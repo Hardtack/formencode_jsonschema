@@ -6,6 +6,7 @@ Converts [formencode](http://www.formencode.org/en/latest/)'s schema to
 using [Marshmallow](https://marshmallow.readthedocs.org/en/latest/).
 
 [![Build Status](https://travis-ci.org/Hardtack/formencode_jsonschema.svg?branch=master)](https://travis-ci.org/Hardtack/formencode_jsonschema)
+[![Documentation Status](https://readthedocs.org/projects/formencode-jsonschema/badge/?version=latest)](http://formencode-jsonschema.readthedocs.org/en/latest/?badge=latest)
 
 How to use it
 -------------
