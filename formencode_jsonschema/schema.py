@@ -6,6 +6,13 @@ from .converters import DEFAULT_CONVERTERS, SchemaDelegate
 
 
 class JSONSchema(Schema, SchemaDelegate):
+    """
+    Marshmallow schema for convert Formencode's schema to JSON schema.
+
+    You can add more converters by overriding ``__validator_converters__``
+    field.
+
+    """
     type = fields.Constant('object')
     properties = fields.Method('get_properties')
     required = fields.Method('get_required')
@@ -28,9 +35,12 @@ class JSONSchema(Schema, SchemaDelegate):
         return properties
 
     def handle_unknown_validator(self, validator: FormencodeValidator):
+        """When schema found unknown validator, handle that here."""
         raise ValueError(
             "Can not convert a validator {validator!r}"
             .format(validator=validator))
+
+    # Delegate implementations
 
     def can_convert(self, validator: FormencodeValidator):
         for converter in self.__validator_converters__:
