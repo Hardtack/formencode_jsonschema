@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='formencode-jsonschema',
+    name='formencode_jsonschema',
     version='0.1.0',
     description='Dump formencode schema JSON schema using Marshmallow',
     author='Choi Geonu',
