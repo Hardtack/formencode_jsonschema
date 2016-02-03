@@ -1,4 +1,3 @@
-import pytest
 from formencode import Schema, validators as v, compound
 
 from formencode_jsonschema import JSONSchema, typed
@@ -15,7 +14,7 @@ def test_simple_dump():
 
     json_schema = JSONSchema()
     formencode_schema = UserCreate()
-    
+
     result = json_schema.dump(formencode_schema)
     compare_schema({
         'required': ['name', 'password', 'username'],
@@ -47,7 +46,7 @@ def test_compound_dump():
 
     json_schema = JSONSchema()
     formencode_schema = UserDescribe()
-    
+
     result = json_schema.dump(formencode_schema)
     compare_schema({
         'required': ['name'],
@@ -70,7 +69,7 @@ def test_typed_dump():
 
     json_schema = JSONSchema()
     formencode_schema = UserReally()
-    
+
     result = json_schema.dump(formencode_schema)
     compare_schema({
         'required': ['really'],

@@ -15,7 +15,6 @@ TYPE_MAP = {
         'format': 'time',
     },
     datetime.timedelta: {
-        # TODO explore using 'range'?
         'type': 'string',
     },
     datetime.datetime: {
@@ -51,8 +50,7 @@ TYPE_MAP = {
         'format': 'float',
     },
     int: {
-        'type': 'number',
-        'format': 'integer',
+        'type': 'integer',
     },
     bool: {
         'type': 'boolean',

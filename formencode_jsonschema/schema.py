@@ -1,5 +1,4 @@
 from marshmallow import Schema, fields
-from formencode import validators as v
 from formencode.api import Validator as FormencodeValidator
 from formencode.schema import Schema as FormencodeSchema
 
@@ -10,7 +9,7 @@ class JSONSchema(Schema, SchemaDelegate):
     type = fields.Constant('object')
     properties = fields.Method('get_properties')
     required = fields.Method('get_required')
-    
+
     __validator_converters__ = DEFAULT_CONVERTERS
 
     def get_required(self, schema: FormencodeSchema):
@@ -20,25 +19,25 @@ class JSONSchema(Schema, SchemaDelegate):
             if self.is_required(validator):
                 required.append(name)
         return required
-    
+
     def get_properties(self, schema: FormencodeSchema):
         fields = schema.fields
         properties = {}
         for name, validator in fields.items():
             properties[name] = self.convert_validator(validator)
         return properties
-    
+
     def handle_unknown_validator(self, validator: FormencodeValidator):
         raise ValueError(
             "Can not convert a validator {validator!r}"
             .format(validator=validator))
-    
+
     def can_convert(self, validator: FormencodeValidator):
         for converter in self.__validator_converters__:
             if converter.can_convert(validator, self):
                 return True
         return False
-    
+
     def is_required(self, validator: FormencodeValidator):
         for converter in self.__validator_converters__:
             if converter.can_convert(validator, self) and \
