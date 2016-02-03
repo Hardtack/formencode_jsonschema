@@ -85,7 +85,10 @@ class TypedValidatorConverter(ValidatorConverter):
         return isinstance(validator, JSONTyped)
 
     def convert(self, validator: Validator, delegate: SchemaDelegate):
-        return validator.json_type
+        json_schema_type = (validator.json_type or {}).copy()
+        if validator.description is not None:
+            json_schema_type['description'] = validator.description
+        return json_schema_type
 
     def is_required(self, validator: Validator, delegate: SchemaDelegate):
         if validator.required is not NoDefault:

@@ -2,13 +2,21 @@ from formencode.api import FancyValidator, NoDefault
 
 
 class JSONTyped(FancyValidator):
+    """
+    Wrap formencode validator with JSON schema's types & properties. ::
+
+        validator = JSONTyped(
+            {'type': 'string'},
+            validators.UnicodeString(),
+            required=True,
+            description="Some important field",
+        )
+
+    """
     __unpackargs__ = ('json_type', 'validator')
 
-    def __init__(self, json_type, validator, *args, **kwargs):
-        self.json_type = json_type
-        self.validator = validator
-        self.required = kwargs.pop('required', NoDefault)
-        super().__init__(*args, **kwargs)
+    required = NoDefault
+    description = None
 
     def _convert_to_python(self, value, state=None):
         return self.validator.to_python(value, state)
@@ -18,6 +26,7 @@ class JSONTyped(FancyValidator):
 
 
 class ObjectTyped(JSONTyped):
+    """Wrap formencode validator with object type of JSON Schema"""
     def __init__(self, validator, *args, **kwargs):
         super().__init__({
             'type': 'object',
@@ -25,6 +34,7 @@ class ObjectTyped(JSONTyped):
 
 
 class ArrrayTyped(JSONTyped):
+    """Wrap formencode validator with array type of JSON Schema"""
     def __init__(self, validator, *args, **kwargs):
         super().__init__({
             'type': 'array',
@@ -32,6 +42,7 @@ class ArrrayTyped(JSONTyped):
 
 
 class DateTyped(JSONTyped):
+    """Wrap formencode validator with date type of JSON Schema"""
     def __init__(self, validator, *args, **kwargs):
         super().__init__({
             'type': 'string',
@@ -40,6 +51,7 @@ class DateTyped(JSONTyped):
 
 
 class TimeTyped(JSONTyped):
+    """Wrap formencode validator with time type of JSON Schema"""
     def __init__(self, validator, *args, **kwargs):
         super().__init__({
             'type': 'string',
@@ -48,6 +60,7 @@ class TimeTyped(JSONTyped):
 
 
 class DateTimeTyped(JSONTyped):
+    """Wrap formencode validator with date-time type of JSON Schema"""
     def __init__(self, validator, *args, **kwargs):
         super().__init__({
             'type': 'string',
@@ -56,6 +69,7 @@ class DateTimeTyped(JSONTyped):
 
 
 class UUIDTyped(JSONTyped):
+    """Wrap formencode validator with uuid type of JSON Schema"""
     def __init__(self, validator, *args, **kwargs):
         super().__init__({
             'type': 'string',
@@ -64,6 +78,7 @@ class UUIDTyped(JSONTyped):
 
 
 class StringTyped(JSONTyped):
+    """Wrap formencode validator with string type of JSON Schema"""
     def __init__(self, validator, *args, **kwargs):
         super().__init__({
             'type': 'string',
@@ -72,6 +87,7 @@ class StringTyped(JSONTyped):
 
 
 class DecimalTyped(JSONTyped):
+    """Wrap formencode validator with decimal type of JSON Schema"""
     def __init__(self, validator, *args, **kwargs):
         super().__init__({
             'type': 'number',
@@ -80,6 +96,7 @@ class DecimalTyped(JSONTyped):
 
 
 class FloatTyped(JSONTyped):
+    """Wrap formencode validator with float type of JSON Schema"""
     def __init__(self, validator, *args, **kwargs):
         super().__init__({
             'type': 'number',
@@ -88,14 +105,15 @@ class FloatTyped(JSONTyped):
 
 
 class IntegerTyped(JSONTyped):
+    """Wrap formencode validator with integer type of JSON Schema"""
     def __init__(self, validator, *args, **kwargs):
         super().__init__({
-            'type': 'number',
-            'format': 'integer',
+            'type': 'integer',
         }, validator, *args, **kwargs)
 
 
 class BooleanTyped(JSONTyped):
+    """Wrap formencode validator with boolean type of JSON Schema"""
     def __init__(self, validator, *args, **kwargs):
         super().__init__({
             'type': 'boolean',
