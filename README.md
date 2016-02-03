@@ -5,6 +5,8 @@ Converts [formencode](http://www.formencode.org/en/latest/)'s schema to
 [JSON Schema](http://json-schema.org/)
 using [Marshmallow](https://marshmallow.readthedocs.org/en/latest/).
 
+[![Build Status](https://travis-ci.org/Hardtack/formencode_jsonschema.svg?branch=master)](https://travis-ci.org/Hardtack/formencode_jsonschema)
+
 How to use it
 -------------
 
