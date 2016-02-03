@@ -19,6 +19,7 @@ TYPE_MAPPING = {
 
 
 class SchemaDelegate(object):
+    """Interface for delegating validator conversion to schema."""
     def can_convert(self, validator: Validator):
         raise NotImplementedError
 
@@ -30,15 +31,19 @@ class SchemaDelegate(object):
 
 
 class ValidatorConverter(metaclass=abc.ABCMeta):
+    """Base class for validator converters."""
     @abc.abstractmethod
     def can_convert(self, validator: Validator, delegate: SchemaDelegate):
+        """Check acceptability."""
         pass
 
     @abc.abstractmethod
     def convert(self, validator: Validator, delegate: SchemaDelegate):
+        """Excute conversion."""
         pass
 
     def is_required(self, validator: Validator, delegate: SchemaDelegate):
+        """Get required flag from validator."""
         if validator.not_empty:
             return True
         if validator.if_missing is NoDefault:
@@ -47,7 +52,18 @@ class ValidatorConverter(metaclass=abc.ABCMeta):
 
 
 class SimpleValidatorConverter(ValidatorConverter):
+    """
+    Simple converter that convert specific validator into specific python type
+    and, convert it to json schema
+
+    """
     def __init__(self, validator_class, python_type):
+        """
+        :param validator_class: base class of target validator.
+        :param python_type: python type to be converted. should be in
+                            ``TYPE_MAP`` in :mod:`formencode_jsonschema.utils`
+        
+        """
         super().__init__()
         self.validator_class = validator_class
         self.python_type = python_type
@@ -62,6 +78,9 @@ class SimpleValidatorConverter(ValidatorConverter):
 
 
 class TypedValidatorConverter(ValidatorConverter):
+    """
+    Convert validator that wraped by typed validator.
+    """
     def can_convert(self, validator: Validator, delegate: SchemaDelegate):
         return isinstance(validator, JSONTyped)
 
@@ -75,6 +94,9 @@ class TypedValidatorConverter(ValidatorConverter):
 
 
 class AllValidatorConverter(ValidatorConverter):
+    """
+    Convert ``All`` validator using first validator.
+    """
     def can_convert(self, validator: Validator, delegate: SchemaDelegate):
         if not isinstance(validator, compound.All):
             return False
@@ -89,6 +111,9 @@ class AllValidatorConverter(ValidatorConverter):
 
 
 class PipeValidatorConverter(ValidatorConverter):
+    """
+    Convert ``All`` validator using last validator.
+    """
     def can_convert(self, validator: Validator, delegate: SchemaDelegate):
         if not isinstance(validator, compound.Pipe):
             return False
@@ -101,10 +126,11 @@ class PipeValidatorConverter(ValidatorConverter):
         is_required = super().is_required
         return all(is_required(x, delegate) for x in validator.validators)
 
-
+#: Define simple converters
 SIMPLE_CONVERTERS = tuple(SimpleValidatorConverter(x, y)
                           for x, y in TYPE_MAPPING.items())
 
+#: Default converters
 DEFAULT_CONVERTERS = SIMPLE_CONVERTERS + (
     TypedValidatorConverter(),
     AllValidatorConverter(),
