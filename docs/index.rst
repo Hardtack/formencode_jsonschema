@@ -6,6 +6,10 @@ formencode_jsonschema is a library that converts
 `JSON Schema <http://json-schema.org/>`_.
 And it dependes on `Marshmallow <https://marshmallow.readthedocs.org/en/latest/>`_
 
+Source code
+-----------
+
+Source codes are hosted on `Github <https://github.com/Hardtack/formencode_jsonschema>`_
 
 How to use it
 -------------
