@@ -6,7 +6,7 @@ setup(
     description='Dump formencode schema JSON schema using Marshmallow',
     author='Choi Geonu',
     author_email='6566gun@gmail.com',
-    url='https://github.com/hardtack/formencode-jsonschema',
+    url='https://github.com/hardtack/formencode_jsonschema',
     packages=find_packages(),
     include_package_data=True,
     install_requires=['marshmallow>=2.3.0', 'formencode'],
