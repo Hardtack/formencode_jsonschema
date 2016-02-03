@@ -64,3 +64,8 @@ class SomeFormencodeSchema(Schema):
     }
 }
 ```
+
+Documentation
+-------------
+
+Document of formencode_jsonshcmea is hosted on [RTD](http://formencode-jsonschema.readthedocs.org/).
