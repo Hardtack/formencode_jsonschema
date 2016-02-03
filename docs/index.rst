@@ -40,6 +40,13 @@ User's Guide
    converter
    typed
 
+API References
+--------------
+
+.. toctree::
+
+   api/modules
+
 
 Indices and tables
 ==================

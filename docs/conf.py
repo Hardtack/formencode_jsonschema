@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # formencode_jsonschema documentation build configuration file, created by
-# sphinx-quickstart on Wed Feb  3 14:34:45 2016.
+# sphinx-quickstart on Wed Feb  3 15:22:24 2016.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -31,6 +31,7 @@ sys.path.insert(0, os.path.abspath('..'))
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.viewcode',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
